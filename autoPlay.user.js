@@ -566,7 +566,7 @@ function useAutoUpgrade() {
 	var cache = s().m_UI.m_rgElementCache;
 	var upg_enabled = [
 		enableAutoUpgradeClick,
-		enableAutoUpgradeHP && pTree.max_hp < Math.max(300000, gData.level * 30),
+		enableAutoUpgradeHP && pTree.max_hp < Math.max(300000, gData.level * 30) && pData.hp / pTree.max_hp < .40,
 		enableAutoUpgradeDPS,
 	];
 

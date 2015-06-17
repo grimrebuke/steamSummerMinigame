@@ -1286,27 +1286,30 @@ function useAbilities(level, timeLeft)
 	}
 
 	// Medic & Pumped Up
-	if (tryUsingAbility(ABILITIES.PUMPED_UP)){
-		// Pumped Up is purchased, cooled down, and needed. Trigger it.
-		advLog('Pumped up is always good.', 2);
-	}
-	else
-	{
-		// check if Medics is purchased and cooled down
-		if (tryUsingAbility(ABILITIES.MEDICS)) {
-			advLog('BadMedic is purchased, cooled down. Trigger it.', 2);
+	var pData = s().m_rgPlayerData;
+	var pTree = s().m_rgPlayerTechTree;
+	if (pData.hp / pTree.max_hp < .40) {
+		if (tryUsingAbility(ABILITIES.PUMPED_UP)){
+			// Pumped Up is purchased, cooled down, and needed. Trigger it.
+			advLog('Pumped up is always good.', 2);
 		}
+		else
+		{
+			// check if Medics is purchased and cooled down
+			if (tryUsingAbility(ABILITIES.MEDICS)) {
+				advLog('BadMedic is purchased, cooled down. Trigger it.', 2);
+			}
 
-		if(level > 5000 && tryUsingAbility(ABILITIES.REFLECT_DAMAGE)) {
-			advLog('We have reflect damage, cooled down. Trigger it.', 2);
+			if(level > 5000 && tryUsingAbility(ABILITIES.REFLECT_DAMAGE)) {
+				advLog('We have reflect damage, cooled down. Trigger it.', 2);
+			}
+			else if(level > 2500 && tryUsingAbility(ABILITIES.STEAL_HEALTH)) {
+				advLog('We have steal health, cooled down. Trigger it.', 2);
+			}
+			else if (tryUsingAbility(ABILITIES.GOD_MODE)) {
+				advLog('We have god mode, cooled down. Trigger it.', 2);
+			}
 		}
-		else if(level > 2500 && tryUsingAbility(ABILITIES.STEAL_HEALTH)) {
-			advLog('We have steal health, cooled down. Trigger it.', 2);
-		}
-		else if (tryUsingAbility(ABILITIES.GOD_MODE)) {
-			advLog('We have god mode, cooled down. Trigger it.', 2);
-		}
-
 	}
 
 	// Wormhole
